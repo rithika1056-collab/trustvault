@@ -64,3 +64,7 @@ GET,/api/documents/:id/download,Owner or Granted User,Downloads document; writes
 POST,/api/documents/:id/permissions,Owner / Admin,Grants explicit read or edit access to a user
 DELETE,/api/documents/:id/permissions/:userId,Owner / Admin,Revokes document access immediately
 GET,/api/admin/audit-logs,Admin,Fetches the compliance audit log (last 200 entries)
+
+
+## 🌐 Live Deployment
+- **Live URL:** https://trustvault-app-6t0f.onrender.com
