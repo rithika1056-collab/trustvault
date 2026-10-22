@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrustVault — Secure Document Management</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <header class="navbar">
+      <div class="logo">
+        <span class="icon">🔒</span>
+        <h1>TrustVault</h1>
+      </div>
+      <div id="user-info" class="user-info hidden">
+        <span id="nav-username"></span>
+        <span id="nav-role" class="badge"></span>
+        <button id="logout-btn" class="btn btn-secondary">Sign Out</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="auth-section" class="card">
+        <h2>Authentication</h2>
+        <p class="subtitle">Select or enter credentials to sign into TrustVault.</p>
+        <div class="demo-pills">
+          <button class="pill" onclick="quickFill('admin_user', 'Admin@123')">Admin</button>
+          <button class="pill" onclick="quickFill('owner_user', 'Owner@123')">Owner</button>
+          <button class="pill" onclick="quickFill('viewer_user', 'Viewer@123')">Viewer</button>
+        </div>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn btn-primary full-width">Sign In</button>
+        </form>
+        <p id="auth-error" class="error-msg hidden"></p>
+      </section>
+
+      <div id="dashboard" class="hidden">
+        <section id="upload-section" class="card">
+          <h2>Upload Confidential Document</h2>
+          <form id="upload-form">
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="doc-title">Document Title</label>
+                <input type="text" id="doc-title" placeholder="e.g. Q4 Financial Audit" required>
+              </div>
+              <div class="form-group">
+                <label for="doc-category">Category</label>
+                <select id="doc-category">
+                  <option value="Finance">Finance</option>
+                  <option value="Legal">Legal</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="HR">HR</option>
+                  <option value="General">General</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="doc-file">Select File</label>
+              <input type="file" id="doc-file" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload Document</button>
+          </form>
+          <p id="upload-status" class="status-msg hidden"></p>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h2>Authorized Documents</h2>
+            <div class="filters">
+              <input type="text" id="search-input" placeholder="Search by title or filename...">
+              <select id="category-filter">
+                <option value="">All Categories</option>
+                <option value="Finance">Finance</option>
+                <option value="Legal">Legal</option>
+                <option value="Engineering">Engineering</option>
+                <option value="HR">HR</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-container">
+            <table id="documents-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Filename</th>
+                  <th>Category</th>
+                  <th>Owner</th>
+                  <th>Your Role</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="documents-list"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="admin-section" class="card hidden">
+          <div class="card-header">
+            <h2>Compliance Audit Trail (Immutable)</h2>
+            <button id="refresh-audit-btn" class="btn btn-secondary">Refresh Logs</button>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>User</th>
+                  <th>Action</th>
+                  <th>Status</th>
+                  <th>IP Address</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="audit-logs-list"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="share-modal" class="modal hidden">
+    <div class="modal-content card">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3>Manage Access Permissions</h3>
+      <p id="modal-doc-title" class="subtitle"></p>
+      
+      <form id="grant-perm-form">
+        <input type="hidden" id="modal-doc-id">
+        <div class="form-group">
+          <label for="target-username">Grant Access to Username</label>
+          <input type="text" id="target-username" placeholder="e.g. viewer_user" required>
+        </div>
+        <div class="form-group">
+          <label for="perm-level">Permission Level</label>
+          <select id="perm-level">
+            <option value="read">Read & Download</option>
+            <option value="edit">Edit</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary full-width">Grant Access</button>
+      </form>
+      <p id="modal-status" class="status-msg hidden"></p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
