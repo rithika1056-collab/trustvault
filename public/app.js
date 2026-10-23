@@ -273,3 +273,16 @@ if (token && savedUser) {
   currentUser = JSON.parse(savedUser);
   renderDashboard();
 }
+
+// Password visibility toggle (eye icon)
+const togglePasswordBtn = document.getElementById('toggle-password');
+const passwordInput = document.getElementById('password');
+if (togglePasswordBtn && passwordInput) {
+  togglePasswordBtn.addEventListener('click', () => {
+    const isHidden = passwordInput.type === 'password';
+    passwordInput.type = isHidden ? 'text' : 'password';
+    togglePasswordBtn.textContent = isHidden ? '🙈' : '👁️';
+    togglePasswordBtn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+    togglePasswordBtn.title = isHidden ? 'Hide password' : 'Show password';
+  });
+}
