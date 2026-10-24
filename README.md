@@ -4,8 +4,7 @@
 TrustVault is an enterprise document security platform engineered to guarantee that unauthorized parties can never access confidential documents, while maintaining a tamper-evident audit record of all access and rejected attempts.
 
 ## 🌐 Live Deployment
-- **Live URL:** https://trustvault-app.onrender.com
-*(Replace with your exact Render URL if different)*
+- **Live URL:** https://trustvault-app-6t0f.onrender.com
 
 ---
 
@@ -66,5 +65,3 @@ DELETE,/api/documents/:id/permissions/:userId,Owner / Admin,Revokes document acc
 GET,/api/admin/audit-logs,Admin,Fetches the compliance audit log (last 200 entries)
 
 
-## 🌐 Live Deployment
-- **Live URL:** https://trustvault-app-6t0f.onrender.com
