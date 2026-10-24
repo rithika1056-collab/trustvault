@@ -19,9 +19,10 @@
 }
 
 body {
-  background-color: var(--bg);
+  background: linear-gradient(160deg, #0f0c29 0%, #302b63 45%, #24243e 100%);
   color: var(--text);
   min-height: 100vh;
+  background-attachment: fixed;
 }
 
 .navbar {
@@ -29,8 +30,8 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--surface);
-  border-bottom: 1px solid var(--border);
+  background-color: transparent;
+  border-bottom: none;
 }
 
 .logo {
@@ -68,11 +69,20 @@ body {
   gap: 1.5rem;
 }
 
+/* Make the login card more centered and premium */
+#auth-section {
+  max-width: 420px;
+  margin: 3rem auto 0;
+  width: 100%;
+}
+
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
-  padding: 1.5rem;
+  background: rgba(30, 41, 59, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .card-header {
