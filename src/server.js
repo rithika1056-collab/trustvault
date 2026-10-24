@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet'); // Added for security headers
 const path = require('path');
 require('dotenv').config();
+
+const rateLimit = require('express-rate-limit');   // ← Added
 
 const authRoutes = require('./routes/auth');
 const docRoutes = require('./routes/documents');
@@ -11,10 +14,27 @@ const { authenticateToken } = require('./middleware/auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Rate limiter for login
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // max 10 attempts
+  message: { error: 'Too many login attempts. Please try again later.' }
+});
+
+// Security headers
+app.use(
+  helmet({
+    contentSecurityPolicy: false
+  })
+);
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../public')));
+
+// Apply rate limiter only to login route
+app.use('/api/auth/login', loginLimiter);   // ← Added
 
 app.use('/api/auth', authRoutes);
 app.use('/api/documents', docRoutes);
